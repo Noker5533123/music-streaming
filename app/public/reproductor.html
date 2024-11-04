@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Streaming</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            background-color: #0a0f1e; /* Fondo azul oscuro */
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Contenedor principal */
+        #music-player {
+            width: 100%;
+            max-width: 600px;
+            background-color: #162338; /* Azul más claro */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Reproductor de audio */
+        audio {
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        /* Botones de navegación */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .controls button {
+            background-color: #1da1f2; /* Azul brillante */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .controls button:hover {
+            background-color: #0d8de0; /* Azul más oscuro en hover */
+        }
+
+        /* Título de la canción */
+        h1, h2 {
+            color: #1da1f2; /* Azul brillante para los títulos */
+        }
+
+        /* Lista de canciones */
+        #song-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        /* Estilo de las canciones */
+        #song-list li {
+            padding: 10px;
+            border-bottom: 1px solid #2a3a5e; /* Divisores azules */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #song-list li:hover {
+            background-color: #2a3a5e; /* Efecto hover en azul */
+        }
+
+        /* Canción seleccionada */
+        .active {
+            background-color: #1da1f2; /* Azul brillante para canción activa */
+        }
+
+        /* Scrollbar personalizado */
+        #song-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #song-list::-webkit-scrollbar-thumb {
+            background-color: #1da1f2; /* Scrollbar en azul brillante */
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="music-player">
+        <h1>Music Player</h1>
+
+        <!-- Botones de navegación -->
+        <div class="controls">
+            <button id="prev-button">Anterior</button>
+            <button id="next-button">Siguiente</button>
+        </div>
+
+        <!-- Reproductor de audio -->
+        <audio id="audio-player" controls></audio>
+
+        <h2>Song List</h2>
+        <ul id="song-list">
+            <!-- Lista de canciones generada dinámicamente -->
+        </ul>
+    </div>
+
+    <script>
+        // URL base del servidor
+        const baseUrl = 'http://localhost:3000';
+
+        // Elementos HTML
+        const audioPlayer = document.getElementById('audio-player');
+        const songList = document.getElementById('song-list');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        let currentSongIndex = 0; // Para saber cuál es la canción actual
+        let songs = []; // Para almacenar todas las canciones
+
+        // Función para cargar la lista de canciones desde el servidor
+        function loadSongs() {
+            fetch(`${baseUrl}/songs`)
+                .then(response => response.json())
+                .then(data => {
+                    songs = data; // Guardamos las canciones en una variable global
+                    data.forEach((song, index) => {
+                        const li = document.createElement('li');
+                        li.textContent = song.name;
+                        li.dataset.url = song.url;
+                        li.classList.add('song-item');
+
+                        li.addEventListener('click', () => {
+                            playSong(index);
+                        });
+
+                        songList.appendChild(li);
+                    });
+
+                    // Reproducir la primera canción automáticamente
+                    if (songs.length > 0) {
+                        playSong(0);
+                    }
+                })
+                .catch(error => console.error('Error loading songs:', error));
+        }
+
+        // Función para reproducir una canción por índice
+        function playSong(index) {
+            currentSongIndex = index; // Actualizamos el índice de la canción actual
+            const song = songs[index];
+            audioPlayer.src = `${baseUrl}${song.url}`;
+            audioPlayer.play();
+
+            // Actualizar la clase 'active' en la lista de canciones
+            document.querySelectorAll('.song-item').forEach((item, idx) => {
+                item.classList.toggle('active', idx === index);
+            });
+        }
+
+        // Función para pasar a la siguiente canción
+        function playNextSong() {
+            currentSongIndex = (currentSongIndex + 1) % songs.length; // Pasar a la siguiente canción en bucle
+            playSong(currentSongIndex);
+        }
+
+        // Función para pasar a la canción anterior
+        function playPreviousSong() {
+            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length; // Volver a la canción anterior en bucle
+            playSong(currentSongIndex);
+        }
+
+        // Asignar funciones a los botones de siguiente y anterior
+        nextButton.addEventListener('click', playNextSong);
+        prevButton.addEventListener('click', playPreviousSong);
+
+        // Cuando la canción termine, reproducir la siguiente
+        audioPlayer.addEventListener('ended', playNextSong);
+
+        // Cargar canciones cuando la página se cargue
+        window.onload = loadSongs;
+    </script>
+
+</body>
+</html>
+

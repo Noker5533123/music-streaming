@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Estación de Radio</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <script src="pagina.js"></script>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0a0f1e; /* Fondo azul oscuro */
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Encabezado */
+        header {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header h1 img {
+            border-radius: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        nav a {
+            color: #1da1f2;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #1da1f2;
+        }
+
+        /* Banner */
+        .banner {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Contenido principal */
+        main {
+            max-width: 800px;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #162338;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h2, h3 {
+            color: #1da1f2;
+            text-align: center;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        /* Sección de ubicación */
+        .mapa iframe {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Diferenciales */
+        .diferenciales .lista-diferenciales {
+            list-style: none;
+            padding: 0;
+        }
+
+        .diferenciales .items {
+            background-color: #1da1f2;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+            color: #0a0f1e;
+            font-weight: bold;
+        }
+
+        .diferenciales .imagen-diferenciales {
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Video */
+        .video iframe {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Pie de página */
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #162338;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        footer img {
+            border-radius: 10px;
+        }
+
+        .copyright {
+            color: #1da1f2;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1><img src="../imagen_principal.webp" alt="imagen" width="300" height="140"></h1>
+        <nav>
+            <ul>
+                <li><a href="reproductor.html">Tu música</a></li>
+                <li><a href="sesion.html">Inicio de sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <img class="banner" src="C:/Users/migue/OneDrive/Documentos/Tecnologias de la computacion 1/Portada servin.png">
+
+    <main>
+        <section class="principal">
+            <h2>Estación De Radio</h2>
+            <img class="utensilios" src="imagenes/microfonoKaren.jpeg" alt="Equipamiento de radio">
+            <p>Bienvenidos a Estación Online, tu fuente de música y entretenimiento en línea...</p>
+            <p id="mision"><em>Nuestra misión es: <strong>"Llevar la música a tus oídos y alegría a tu día"</strong>.</em></p>
+        </section>
+
+        <section class="mapa">
+            <h3>Nuestra Ubicación</h3>
+            <p>Ubicado en el corazón de la ciudad</p>
+            <div class="mapa-contenido">
+                <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="300"></iframe>
+            </div>
+        </section>
+
+        <section class="diferenciales">
+            <h3>Estación Ofrece</h3>
+            <div class="contenido-diferenciales">
+                <ul class="lista-diferenciales">
+                    <li class="items">Música 24/7</li>
+                    <li class="items">Espacio diferenciado</li>
+                    <li class="items">Noticias de moda</li>
+                    <li class="items">Radio Información</li>
+                    <li class="items">Promociones</li>
+                </ul>
+                <img src="imagenes/logoDiferencial.jpg" class="imagen-diferenciales" width="200" height="150">
+            </div>
+
+            <div class="video">
+                <iframe src="https://www.youtube.com/embed/W9If4-IhzM0" width="100%" height="315"></iframe>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <img src="C:/Users/migue/OneDrive/Documentos/Tecnologias de la computacion 1/Logo Servin2.png" width="130" height="130">
+        <p class="copyright">&copy; Copyright Estación by Julio- <span id="current-year"></span></p>
+    </footer>
+</body>
+</html>
+

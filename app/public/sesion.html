@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio de Sesión</title>
+    <style>
+        /* Estilo para el encabezado */
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .titulo-principal {
+            font-size: 2em;
+            font-weight: 400;
+        }
+
+        /* Contenedor principal centrado */
+        .principal {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f7f7f7;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilo del formulario */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        /* Botón de inicio de sesión */
+        button {
+            padding: 12px;
+            background-color: #1a1a1a;
+            color: white;
+            font-size: 1em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        /* Centrado de texto */
+        .titulo-centralizado {
+            font-size: 1.5em;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 class="titulo-principal">Ábrete a un nuevo mundo de la Música</h1>
+    </header>
+
+    <div class="principal">
+        <h2 class="titulo-centralizado">Inicio de Sesión</h2>
+        <form id="loginForm">
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" name="usuario" required>
+
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena" required>
+
+            <button type="button" id="loginButton">Iniciar Sesión</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript para el manejo del inicio de sesión
+        var inicioDeSesionMaster = "kukis";
+        var contrasenaMaster = "12345";
+        var maximoIntentos = 2;
+        var intentoActual = 1;
+
+        var loginButton = document.getElementById("loginButton");
+
+        loginButton.addEventListener("click", function () {
+            var usuarioIngresado = document.getElementById("usuario").value;
+            var contrasenaIngresada = document.getElementById("contrasena").value;
+
+            if (usuarioIngresado === inicioDeSesionMaster && contrasenaIngresada === contrasenaMaster) {
+                alert("Inicio de sesión exitoso. ¡Bienvenido!");
+                window.location.href = "index.html";
+            } else {
+                if (intentoActual >= maximoIntentos) {
+                    alert("Agotaste el número permitido de intentos.");
+                } else {
+                    alert("Inicio de sesión inválido. Favor intente de nuevo");
+                    intentoActual++;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
+
